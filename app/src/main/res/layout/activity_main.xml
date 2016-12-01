@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/web_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/web"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="WebView"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/web1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="WebView delay 300"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/web2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:text="WebView delay 600"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/contacts"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/web_container"
+        android:layout_marginTop="12dp"
+        android:text="Contacts Test"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/contacts_system_search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/contacts"
+        android:layout_marginTop="12dp"
+        android:text="Contacts system search"
+        android:textAllCaps="false" />
+
+    <com.example.lizhe.mytest.KInduceButton
+        android:id="@+id/one_key_start"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:layout_below="@id/contacts_system_search"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="15.0dip"
+        android:layout_marginLeft="18.0dip"
+        android:layout_marginRight="18.0dip"
+        android:background="@android:color/holo_red_dark"
+        android:text="Repair"
+        android:textColor="@android:color/black"
+        android:textSize="18.0sp" />
+
+    <Button
+        android:id="@+id/speech"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/one_key_start"
+        android:layout_marginTop="12dp"
+        android:text="Speech to Text"
+        android:textAllCaps="false" />
+</RelativeLayout>

@@ -6,16 +6,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.lizhe.mytest.WebViewActivity">
 
-    <TextView
-        android:id="@+id/tv_search"
+    <EditText
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:text="search" />
 
     <WebView
         android:id="@+id/wb_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_search" />
+        android:layout_below="@id/search" />
 
 </RelativeLayout>

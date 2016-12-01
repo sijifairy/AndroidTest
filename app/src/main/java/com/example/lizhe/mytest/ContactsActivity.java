@@ -10,17 +10,20 @@ import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 /**
- *
  * Reference https://developer.android.com/training/contacts-provider/index.html.
- *
  */
-public class ContactsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
+public class ContactsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     /*
          * Defines an array that contains column names to move from
          * the Cursor to the ListView.
@@ -55,10 +58,20 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                     ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
                     ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
+    // Defines the text expression
+    @SuppressLint("InlinedApi")
+    private static final String SELECTION_COMBINATION = "(" + ContactsContract.CommonDataKinds.Email.ADDRESS + " LIKE ? " + "AND " +
+            ContactsContract.Data.MIMETYPE + " = '" + ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE + "'" + ")"
+            + " OR"
+            + "(" + ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + " LIKE ? " + "AND " +
+            ContactsContract.Data.MIMETYPE + " = '" + ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE + "'" + ")"
+            + " OR"
+            + "(" + ContactsContract.CommonDataKinds.Phone.NUMBER + " LIKE ? " + "AND " +
+            ContactsContract.Data.MIMETYPE + " = '" + ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "'" + ")";
     // Defines a variable for the search string
-    private String mSearchString;
+    private String mSearchString = "";
     // Defines the array to hold values that replace the ?
-    private String[] mSelectionArgs = { mSearchString };
+    private String[] mSelectionArgs = {mSearchString, mSearchString, mSearchString};
 
     /*
      * Defines an array that contains resource ids for the layout views
@@ -81,20 +94,17 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
     // An adapter that binds the result Cursor to the ListView
     private SimpleCursorAdapter mCursorAdapter;
 
+    private EditText mSearch;
+    private long time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-//        Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-//        while (cursor.moveToNext()) {
-//            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-//            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-//        }
-
         // Gets the ListView from the View list of the parent activity
-        mContactsList =
-                (ListView) findViewById(R.id.list);
+        mContactsList = (ListView) findViewById(R.id.list);
+        mSearch = (EditText) findViewById(R.id.search);
         // Gets a CursorAdapter
         mCursorAdapter = new SimpleCursorAdapter(
                 this,
@@ -127,6 +137,24 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
 
         getLoaderManager().initLoader(0, null, this);
 
+        mSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("contacts", "search on text changed " + s.toString());
+                mSearchString = s.toString();
+                getLoaderManager().restartLoader(0, null, ContactsActivity.this);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -135,21 +163,47 @@ public class ContactsActivity extends AppCompatActivity implements LoaderManager
          * Makes search string into pattern and
          * stores it in the selection array
          */
-        mSelectionArgs[0] = "%" + mSearchString + "%";
+        time = System.currentTimeMillis();
+        mSelectionArgs[0] = "%" + mSearchString.replace(" ", "%") + "%";
+        mSelectionArgs[1] = "%" + mSearchString.replace(" ", "%") + "%";
+        mSelectionArgs[2] = "%" + mSearchString.replace(" ", "%") + "%";
         // Starts the query
         return new CursorLoader(
                 this,
-                ContactsContract.Contacts.CONTENT_URI,
+                ContactsContract.Data.CONTENT_URI,
                 PROJECTION,
-                null,
+                SELECTION_COMBINATION,
                 mSelectionArgs,
                 null
         );
     }
 
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
+//        /*
+//         * Appends the search string to the base URI. Always
+//         * encode search strings to ensure they're in proper
+//         * format.
+//         */
+//        time = System.currentTimeMillis();
+//        Uri contentUri = Uri.withAppendedPath(
+//                ContactsContract.Contacts.CONTENT_FILTER_URI,
+//                Uri.encode(mSearchString));
+//        // Starts the query
+//        return new CursorLoader(
+//                ContactsActivity.this,
+//                contentUri,
+//                PROJECTION,
+//                null,
+//                null,
+//                null
+//        );
+//    }
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // Put the result Cursor in the adapter for the ListView
+        Toast.makeText(ContactsActivity.this, "query cost time in mills is " + (System.currentTimeMillis() - time), Toast.LENGTH_SHORT).show();
         mCursorAdapter.swapCursor(cursor);
     }
 
