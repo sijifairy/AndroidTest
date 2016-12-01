@@ -1,6 +1,7 @@
 package com.example.lizhe.mytest;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.contacts).setOnClickListener(this);
         findViewById(R.id.contacts_system_search).setOnClickListener(this);
         findViewById(R.id.speech).setOnClickListener(this);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
+        registerReceiver(new LanguageChangeReceiver(), filter);
     }
 
     @Override

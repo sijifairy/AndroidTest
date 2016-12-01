@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".SpeechTestActivity">
         </activity>
+        <receiver android:name=".LanguageChangeReceiver"></receiver>
     </application>
 
 </manifest>
