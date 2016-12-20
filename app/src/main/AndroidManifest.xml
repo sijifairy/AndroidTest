@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -12,18 +16,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".WebViewActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".SpeechTestActivity" />
+
+        <receiver android:name=".LanguageChangeReceiver" />
+
+        <activity android:name=".TextureViewTestActivity" />
+        <activity android:name=".opengl.OpenGLTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SpeechTestActivity">
-        </activity>
-        <receiver android:name=".LanguageChangeReceiver"></receiver>
+            </intent-filter></activity>
     </application>
 
 </manifest>

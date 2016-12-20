@@ -80,4 +80,55 @@
         android:layout_marginTop="12dp"
         android:text="Speech to Text"
         android:textAllCaps="false" />
+
+
+    <LinearLayout
+        android:id="@+id/auto_resize"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/speech"
+        android:orientation="horizontal">
+
+        <com.example.lizhe.mytest.AutoResizeTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="15"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="50sp" />
+
+        <com.example.lizhe.mytest.AutoResizeTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text=":"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="50sp" />
+
+        <com.example.lizhe.mytest.AutoResizeTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:text="30"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="50sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/texture_test"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/auto_resize"
+        android:layout_marginTop="12dp"
+        android:text="Texture Test"
+        android:textAllCaps="false" />
 </RelativeLayout>

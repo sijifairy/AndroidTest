@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.contacts).setOnClickListener(this);
         findViewById(R.id.contacts_system_search).setOnClickListener(this);
         findViewById(R.id.speech).setOnClickListener(this);
+        findViewById(R.id.texture_test).setOnClickListener(this);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.speech:
                 startActivity(new Intent(MainActivity.this, SpeechTestActivity.class));
+                break;
+            case R.id.texture_test:
+                startActivity(new Intent(MainActivity.this, TextureViewTestActivity.class));
                 break;
         }
     }
