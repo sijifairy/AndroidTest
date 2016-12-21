@@ -17,7 +17,7 @@ public class OpenGLTestActivity extends AppCompatActivity {
 
         glSurfaceView = new GLSurfaceView(this);
         glSurfaceView.setEGLContextClientVersion(2);
-        glSurfaceView.setRenderer(new OpenGLTestRenderer());
+        glSurfaceView.setRenderer(new OpenGLTestRenderer(this));
         rendererSet = true;
 
         setContentView(glSurfaceView);
