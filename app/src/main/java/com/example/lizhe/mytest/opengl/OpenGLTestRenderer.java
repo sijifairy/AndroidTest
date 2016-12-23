@@ -52,6 +52,7 @@ public class OpenGLTestRenderer implements Renderer {
 
     private Context context;
     private int program;
+    private int index;
 
     public OpenGLTestRenderer(Context context) {
         this.context = context;
@@ -99,6 +100,8 @@ public class OpenGLTestRenderer implements Renderer {
 
         glEnableVertexAttribArray(aPositionLocation);
         glEnableVertexAttribArray(aColorLocation);
+
+        index = 0;
     }
 
     @Override
@@ -140,5 +143,9 @@ public class OpenGLTestRenderer implements Renderer {
 
         glDrawArrays(GL_POINTS, 8, 1);
         glDrawArrays(GL_POINTS, 9, 1);
+
+        index++;
+
+        vertexData.put(40, (float) (index * 0.01f - Math.floor(index * 0.01f)));
     }
 }
