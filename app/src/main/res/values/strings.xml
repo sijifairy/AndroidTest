@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyTest</string>
+
+    <string name="accessibility_service_description" translatable="false">"Turn 'ON' the switch on the top right. ↗️⊙.⊙↗️
+With accessibility authorization, libDeviceMonitor can help you extend battery life more than twice as much!
+
+Note: You may receive a system reminder about authorizing lib Clean. Memory Boost will NEVER collect ANY of your information."</string>
 </resources>
