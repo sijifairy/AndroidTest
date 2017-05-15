@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyTest</string>
+    <string name="app_name">Apus Browser</string>
 
     <string name="accessibility_service_description" translatable="false">"Turn 'ON' the switch on the top right. ↗️⊙.⊙↗️
 With accessibility authorization, libDeviceMonitor can help you extend battery life more than twice as much!

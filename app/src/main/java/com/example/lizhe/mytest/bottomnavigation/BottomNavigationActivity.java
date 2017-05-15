@@ -1,14 +1,22 @@
 package com.example.lizhe.mytest.bottomnavigation;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.lizhe.mytest.LockerTestActivity;
 import com.example.lizhe.mytest.R;
+import com.example.lizhe.mytest.TestAffinity;
+import com.example.lizhe.mytest.tablayout.TabLayout;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
@@ -27,6 +35,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
             window.setFlags(
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
         final ColorTransitionView colorTransitionView = (ColorTransitionView) findViewById(R.id.clip_bottom_view);
@@ -46,5 +58,48 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+//        filter.addAction(Intent.ACTION_SCREEN_ON);
+        registerReceiver(new BroadcastReceiver() {
+            @Override public void onReceive(Context context, Intent intent) {
+                startActivity(new Intent(BottomNavigationActivity.this, LockerTestActivity.class));
+            }
+        }, filter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout.Tab tab = tabLayout.newTab();
+        tab.setText("11111");
+        tabLayout.addTab(tab);
+        TabLayout.Tab tab1 = tabLayout.newTab();
+        tab1.setText("22222");
+        tabLayout.addTab(tab1);
+
+        findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent(BottomNavigationActivity.this, TestAffinity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e("result", "requestcode " + resultCode + " resultcode" + resultCode);
+    }
+
+    @Override public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        int a = 1;
+    }
+
+    @Override public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        int b = 1;
     }
 }
